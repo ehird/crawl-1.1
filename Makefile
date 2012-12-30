@@ -15,5 +15,7 @@ scores:
 %.o: %.cpp
 	g++ -c $(CXXFLAGS) $< -o $@
 
+port.o: CXXFLAGS=-Wall -ggdb3 -I/usr/include/ncursesw
+
 clean:
 	rm -f *.o crawl

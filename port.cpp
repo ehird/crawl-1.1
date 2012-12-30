@@ -87,7 +87,8 @@ void startup()
 {
     setlocale(LC_CTYPE, "");
     win = initscr();
-    atexit(endwin);
+    /* FIXME: is this cast a good idea? */
+    atexit((void (*)()) endwin);
     start_color();
     cbreak();
     noecho();
