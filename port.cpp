@@ -212,6 +212,7 @@ void puttext(int left, int top, int right, int bottom, unsigned char *str)
             unsigned char chr = *str++;
             unsigned char col = *str++;
             wchar_t w = cp437[chr];
+            if (w == 0) w = (wchar_t)' ';
             textcolor(col);
             mvaddnwstr(y, x, &w, 1);
         }
