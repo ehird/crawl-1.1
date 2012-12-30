@@ -262,7 +262,6 @@ void clrscr()
     textcolor(LIGHTGRAY);
     textbackground(BLACK);
     wclear(win);
-    wrefresh(win);
 }
 
 void delay(int time)
