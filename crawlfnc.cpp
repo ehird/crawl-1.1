@@ -2383,7 +2383,7 @@ switch(char_num)
 */
 //handle = open(char_fil, O_CREAT | O_TRUNC | O_BINARY, S_IWRITE);
 
-handle = open(char_fil, O_CREAT | O_TRUNC | O_BINARY, S_IWRITE | S_IREAD);
+handle = open(char_fil, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, S_IWRITE | S_IREAD);
 
 if (handle == -1)
 {

@@ -698,7 +698,7 @@ ring [0] = -1; ring [1] = -1;
 
 //cprintf("restoring");
 
-// restore_game(); // Must work on saving regeneration, now that speed seems
+restore_game(); // Must work on saving regeneration, now that speed seems
 
 
 
