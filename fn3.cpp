@@ -285,7 +285,7 @@ for (hc = 0; hc < 20; hc ++)
  scores [hc] = 0;
 }
 
-int handle = open("scores", S_IWRITE, S_IREAD);
+int handle = open("scores", O_RDONLY);
 
 if (handle == -1)
 {
@@ -405,7 +405,7 @@ close(handle);
 //getch();
 
 //handle = open("scores", O_CREAT | O_TRUNC | O_BINARY, S_IWRITE | S_IREAD);
-handle = open("scores", O_WRONLY | O_BINARY, S_IWRITE, S_IREAD);
+handle = open("scores", O_WRONLY);
 
 if (handle == -1)
 {
