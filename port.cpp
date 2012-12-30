@@ -88,6 +88,7 @@ void startup()
     setlocale(LC_CTYPE, "");
     win = initscr();
     atexit(endwin);
+    start_color();
     cbreak();
     noecho();
     nonl();
@@ -220,41 +221,40 @@ void puttext(int left, int top, int right, int bottom, unsigned char *str)
     move(orig_y, orig_x);
 }
 
-static int curses_colour(int col)
+static void init_pairs(void)
 {
-    switch (col)
-    {
-    case BLACK:        return COLOR_BLACK;
-    case BLUE:         return COLOR_BLUE;
-    case GREEN:        return COLOR_GREEN;
-    case CYAN:         return COLOR_CYAN;
-    case RED:          return COLOR_RED;
-    case MAGENTA:      return COLOR_MAGENTA;
-    case BROWN:        return COLOR_YELLOW;
-    case LIGHTGRAY:    return COLOR_WHITE;
-    case DARKGRAY:     return (COLOR_BLACK   | A_BOLD);
-    case LIGHTBLUE:    return (COLOR_BLUE    | A_BOLD);
-    case LIGHTGREEN:   return (COLOR_GREEN   | A_BOLD);
-    case LIGHTCYAN:    return (COLOR_CYAN    | A_BOLD);
-    case LIGHTRED:     return (COLOR_RED     | A_BOLD);
-    case LIGHTMAGENTA: return (COLOR_MAGENTA | A_BOLD);
-    case YELLOW:       return (COLOR_YELLOW  | A_BOLD);
-    case WHITE:        return (COLOR_WHITE   | A_BOLD);
-    }
+//    init_pair(BLACK + 1, COLOR_BLACK, COLOR_BLACK);
+//    init_pair(BLUE + 1, COLOR_BLUE, COLOR_BLACK);
+//    init_pair(GREEN + 1, COLOR_GREEN, COLOR_BLACK);
+//    init_pair(CYAN + 1, COLOR_CYAN, COLOR_BLACK);
+//    init_pair(RED + 1, COLOR_RED, COLOR_BLACK);
+    init_pair(1, COLOR_RED, COLOR_BLACK);
+//    init_pair(BROWN + 1, COLOR_YELLOW, COLOR_BLACK);
+//    init_pair(LIGHTGRAY + 1, COLOR_WHITE, COLOR_BLACK);
+//    init_pair(DARKGRAY + 1, COLOR_BLACK | A_BOLD, COLOR_BLACK);
+//    init_pair(LIGHTBLUE + 1, COLOR_BLUE | A_BOLD, COLOR_BLACK);
+//    init_pair(LIGHTGREEN + 1, COLOR_GREEN | A_BOLD, COLOR_BLACK);
+//    init_pair(LIGHTCYAN + 1, COLOR_CYAN | A_BOLD, COLOR_BLACK);
+//    init_pair(LIGHTRED + 1, COLOR_RED | A_BOLD, COLOR_BLACK);
+//    init_pair(LIGHTMAGENTA + 1, COLOR_MAGENTA | A_BOLD, COLOR_BLACK);
+//    init_pair(YELLOW + 1, COLOR_YELLOW | A_BOLD, COLOR_BLACK);
+//    init_pair(WHITE + 1, COLOR_WHITE | A_BOLD, COLOR_BLACK);
 }
 
 void textcolor(int col)
 {
-    int ccol = curses_colour(col);
-    int pair = ccol == 0 ? 63 : ccol;
-    wattrset(win, COLOR_PAIR(pair));
+    //int ccol = curses_colour(col);
+    //int pair = ccol == 0 ? 63 : ccol;
+    //attron(COLOR_PAIR(1));
+    //color_set(COLOR_PAIR(1), NULL);
+//    attron(COLOR_PAIR(MAGENTA + 1));
 }
 
 void textbackground(int col)
 {
-    int ccol = curses_colour(col);
+    /*int ccol = curses_colour(col);
     int pair = ccol == 0 ? 63 : ccol * 8;
-    wattrset(win, COLOR_PAIR(pair));
+    wattrset(win, COLOR_PAIR(pair));*/
 }
 
 void clrscr()
@@ -262,6 +262,7 @@ void clrscr()
     textcolor(LIGHTGRAY);
     textbackground(BLACK);
     wclear(win);
+    //wrefresh(win);
 }
 
 void delay(int time)
