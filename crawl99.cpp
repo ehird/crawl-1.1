@@ -4,22 +4,26 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <conio.h>
+#include <curses.h>
 #include <string.h>
 //#include <math.h>
 //#include <time.h>
 //#include <alloc.h>
-#include <dos.h>
-#include <fstream.h>
+//#include <dos.h>
+#include <fstream>
 #include <fcntl.h>
-#include <io.h>
-#include <SYS\STAT.H>
-#include <process.h>
+//#include <io.h>
+#include <sys/stat.h>
+//#include <process.h>
+
+#include <unistd.h>
 
 #include <time.h>
 
 //#include <crt0.h>
 
+#include "colours.h"
+#include "port.h"
 
 //#include <dos.h>
 #include "globvars.h"
@@ -40,7 +44,7 @@
 #include "invent.h"
 #include "monsstat.h"
 
-#include "builder.h"
+#include "builder2.h"
 
 //#define ITEMS 300
 
@@ -517,6 +521,8 @@ void initialise(void)
 {
 //                                              damage = 99;
 
+startup();
+
 strcpy(str_pass, "");
 
 for (i = 0; i < 10; i ++)
@@ -535,7 +541,7 @@ your_level = 0;
 
 strcpy(clasnam, "Wizard"); clas = 1;
 
-                        directvideo = 1;
+//                        directvideo = 1;
 
 
 for (i = 0; i < 12; i ++)
@@ -692,7 +698,7 @@ ring [0] = -1; ring [1] = -1;
 
 //cprintf("restoring");
 
-restore_game(); // Must work on saving regeneration, now that speed seems
+// restore_game(); // Must work on saving regeneration, now that speed seems
 
 
 

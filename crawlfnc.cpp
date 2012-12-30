@@ -1,12 +1,18 @@
-#include <conio.h>
+#include <curses.h>
 //#include <alloc.h>
 #include <string.h>
 #include <stdlib.h>
-#include <io.h>
+//#include <io.h>
 #include <fcntl.h>
 #include <stdio.h>
-#include <iostream.h>
-#include <SYS\STAT.H>
+#include <iostream>
+#include <sys/stat.h>
+
+#include <unistd.h>
+
+#include "colours.h"
+#include "port.h"
+
 #include "fn2.h"
 #include "fn3.h"
 
@@ -1523,7 +1529,10 @@ cprintf("\n\r(Copyright 1997 Linley Henzell)");
 cprintf("\n\rPlease read Crawl.txt for instructions and legal details.\n\r\n\r");
 name_q : cprintf("What is your name today? ");
 //cin >> your_nam;
-gets(your_nam);
+//gets(your_nam);
+echo();
+wgetnstr(stdscr, your_nam, 50);
+noecho();
 
 if (strcmp(your_nam, "bones") == 0 | strlen(your_nam) == 0)
 {

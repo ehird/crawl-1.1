@@ -1,16 +1,19 @@
-#include <conio.h>
+#include <curses.h>
 //#include <alloc.h>
 #include <string.h>
 #include <stdlib.h>
 
 
-#include <iostream.h>// Only for debugging!
+#include <iostream>// Only for debugging!
+
+#include "colours.h"
+#include "port.h"
 
 #include "fn3.h"
 #include "builder2.h"
 //#include "newname.h"
 
-#include <process.h>
+//#include <process.h>
 
 
 #define MNST 200

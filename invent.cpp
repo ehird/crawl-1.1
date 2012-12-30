@@ -1,7 +1,10 @@
-#include <conio.h>
+#include <curses.h>
 #include <stdlib.h>
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
+
+#include "colours.h"
+#include "port.h"
 
 #include "crawlfnc.h"
 

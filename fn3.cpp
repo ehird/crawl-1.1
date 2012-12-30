@@ -1,14 +1,18 @@
-#include <iostream.h>
-#include <conio.h>
+#include <iostream>
+#include <curses.h>
 #include <stdio.h>
 #include <string.h>
-#include <dos.h>
-#include <fstream.h>
+//#include <dos.h>
+#include <fstream>
 #include <fcntl.h>
-#include <io.h>
-#include <SYS\STAT.H>
+//#include <io.h>
+#include <sys/stat.h>
 
+#include <stdlib.h>
+#include <unistd.h>
 
+#include "colours.h"
+#include "port.h"
 
 unsigned char mapchar(unsigned char ldfk);
 unsigned char mapchar2(unsigned char ldfk);

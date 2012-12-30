@@ -1578,11 +1578,14 @@ for (i = 0; i < MNST; i++)
 
 //cprintf("\n\rDeleting!");
 
+#if 0
  char del_file [25];
 
         strcpy(del_file, "del ");
         strcat(del_file, cha_fil);
-        sysg = system(del_file);
+        system(del_file);
+#endif
+        sysg = unlink(cha_fil);
 
         if (sysg == -1)
         {
@@ -3298,11 +3301,14 @@ read(handle, rm, 30);
 
 
 
+#if 0
  char del_file [25];
 
         strcpy(del_file, "del ");
         strcat(del_file, char_f);
         sysg = system(del_file);
+#endif
+        sysg = unlink(char_f);
 
         if (sysg == -1)
         {

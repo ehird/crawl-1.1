@@ -1,19 +1,22 @@
 
-#include <iostream.h>
+#include <iostream>
 //#include <graphics.h>
 
 #include <stdlib.h>
 
 #include <stdio.h>
-#include <conio.h>
+#include <curses.h>
 #include <string.h>
 #include <time.h>
-#include <fstream.h>
+#include <fstream>
 #include <fcntl.h>
-#include <io.h>
-#include <SYS\STAT.H>
+//#include <io.h>
+#include <sys/stat.h>
 
 #include <assert.h>
+
+#include "colours.h"
+#include "port.h"
 
 #define ITEMS 500
 #define MNST 200
@@ -279,7 +282,7 @@ unsigned char spec_y, unsigned char spec_type);
 //void stair_check(void);
 
 void link_items(int mons_inv [MNST] [8], unsigned char item_class [ITEMS], char unique_items [50], unsigned char item_x [ITEMS],
- unsigned char item_x [ITEMS], unsigned char item_y [ITEMS], int item_link [ITEMS],
+ /* unsigned char item_x [ITEMS], */ unsigned char item_y [ITEMS], int item_link [ITEMS],
  int igrid [80] [70], int item_quant [ITEMS]);
 
 void big_room(unsigned char grid [80] [70]);
@@ -424,10 +427,10 @@ unsigned char stair_x [10],
 unsigned char stair_y [10],
 unsigned char mons_hit [MNST],
 char gmon_use [400],
-int igrid [80] [70],
+int igrid [80] [70]/*,
 unsigned char trap_type [NTRAPS],
 unsigned char trap_x [NTRAPS],
-unsigned char trap_y [NTRAPS]);
+unsigned char trap_y [NTRAPS]*/);
 
 
 
@@ -879,7 +882,7 @@ if (level_type == 1)
 no_it, item_ident, item_class, unique_items, item_type, item_plus, item_dam, item_quant,
 item_x, item_y, icolour, xtra_quant, item_link, item_description, property,
 trap_type, trap_x, trap_y, mons_alloc, grid, stair_x, stair_y, mons_hit,
-gmon_use, igrid, trap_type, trap_x, trap_y);
+gmon_use, igrid/*, trap_type, trap_x, trap_y*/);
 return 0;
 }
 // must correct gmon_use and mcolour to a higher subscript value
@@ -1822,7 +1825,7 @@ for (bcount_x = 0; bcount_x < 80; bcount_x ++)
 
 
 
-link_items(mons_inv, item_class, unique_items, item_x, item_x, item_y, item_link, igrid, item_quant);
+link_items(mons_inv, item_class, unique_items, item_x, /* item_x, */ item_y, item_link, igrid, item_quant);
 
 //                                                      save_one(); // break;
 
@@ -8687,7 +8690,7 @@ grid [trap_x [bi]] [trap_y [bi]] = 28;
 
 
 void link_items(int mons_inv [MNST] [8], unsigned char item_class [ITEMS], char unique_items [50], unsigned char item_x [ITEMS],
- unsigned char item_x [ITEMS], unsigned char item_y [ITEMS],
+ /* unsigned char item_x [ITEMS], */ unsigned char item_y [ITEMS],
  int item_link [ITEMS], int igrid [80] [70], int item_quant [ITEMS])
 {
 
@@ -9696,10 +9699,10 @@ unsigned char stair_x [10],
 unsigned char stair_y [10],
 unsigned char mons_hit [MNST],
 char gmon_use [400],
-int igrid [80] [70],
+int igrid [80] [70]/*,
 unsigned char trap_type [NTRAPS],
 unsigned char trap_x [NTRAPS],
-unsigned char trap_y [NTRAPS])
+unsigned char trap_y [NTRAPS]*/)
 {
 int lx = 0;
 int ly = 0;
@@ -9962,7 +9965,7 @@ igrid,
 grid [lx] [ly] = 18; // I think...
 // note: must be [lx] [ly] so that you can't be placed on it.
 
-link_items(mons_inv, item_class, unique_items, item_x, item_x, item_y, item_link, igrid, item_quant);
+link_items(mons_inv, item_class, unique_items, item_x, /* item_x, */ item_y, item_link, igrid, item_quant);
 
 
 
