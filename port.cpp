@@ -12,6 +12,8 @@ static WINDOW *win = NULL;
 static int begin_x;
 static int begin_y;
 
+static void init_pairs();
+
 static unsigned short cp437[256] =
 {
     0x0000, 0x263a, 0x263b, 0x2665, 0x2666, 0x2663, 0x2660, 0x2022,
@@ -90,6 +92,7 @@ void startup()
     /* FIXME: is this cast a good idea? */
     atexit((void (*)()) endwin);
     start_color();
+    init_pairs();
     cbreak();
     noecho();
     nonl();
@@ -198,9 +201,7 @@ void gettext(int left, int top, int right, int bottom, unsigned char *dest)
                     *dest++ = w;
                 }
             }
-            //*dest == 'q';
-            //*dest++ = mvinch(row, col) & A_CHARTEXT;
-            *dest++ = 0;
+            *dest++ = PAIR_NUMBER(inch() & A_COLOR) - 1;
         }
     }
     move(orig_y, orig_x);
@@ -209,7 +210,10 @@ void gettext(int left, int top, int right, int bottom, unsigned char *dest)
 void puttext(int left, int top, int right, int bottom, unsigned char *str)
 {
     int orig_y, orig_x;
+    //attr_t attrs;
+    //short pair;
     getyx(stdscr, orig_y, orig_x);
+    //attr_get(&attrs, &pair, NULL);
     for (int y = top - 1; y <= bottom - 1; y++)
     {
         for (int x = left - 1; x <= right - 1; x++)
@@ -222,51 +226,43 @@ void puttext(int left, int top, int right, int bottom, unsigned char *str)
             mvaddnwstr(y, x, &w, 1);
         }
     }
+    //attr_set(attrs, pair, NULL);
     move(orig_y, orig_x);
 }
 
 static void init_pairs(void)
 {
-//    init_pair(BLACK + 1, COLOR_BLACK, COLOR_BLACK);
-//    init_pair(BLUE + 1, COLOR_BLUE, COLOR_BLACK);
-//    init_pair(GREEN + 1, COLOR_GREEN, COLOR_BLACK);
-//    init_pair(CYAN + 1, COLOR_CYAN, COLOR_BLACK);
-//    init_pair(RED + 1, COLOR_RED, COLOR_BLACK);
-    init_pair(1, COLOR_RED, COLOR_BLACK);
-//    init_pair(BROWN + 1, COLOR_YELLOW, COLOR_BLACK);
-//    init_pair(LIGHTGRAY + 1, COLOR_WHITE, COLOR_BLACK);
-//    init_pair(DARKGRAY + 1, COLOR_BLACK | A_BOLD, COLOR_BLACK);
-//    init_pair(LIGHTBLUE + 1, COLOR_BLUE | A_BOLD, COLOR_BLACK);
-//    init_pair(LIGHTGREEN + 1, COLOR_GREEN | A_BOLD, COLOR_BLACK);
-//    init_pair(LIGHTCYAN + 1, COLOR_CYAN | A_BOLD, COLOR_BLACK);
-//    init_pair(LIGHTRED + 1, COLOR_RED | A_BOLD, COLOR_BLACK);
-//    init_pair(LIGHTMAGENTA + 1, COLOR_MAGENTA | A_BOLD, COLOR_BLACK);
-//    init_pair(YELLOW + 1, COLOR_YELLOW | A_BOLD, COLOR_BLACK);
-//    init_pair(WHITE + 1, COLOR_WHITE | A_BOLD, COLOR_BLACK);
+    init_pair(BLACK + 1, COLOR_BLACK, COLOR_BLACK);
+    init_pair(BLUE + 1, COLOR_BLUE, COLOR_BLACK);
+    init_pair(GREEN + 1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(CYAN + 1, COLOR_CYAN, COLOR_BLACK);
+    init_pair(RED + 1, COLOR_RED, COLOR_BLACK);
+    init_pair(BROWN + 1, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(LIGHTGRAY + 1, COLOR_WHITE, COLOR_BLACK);
+    init_pair(DARKGRAY + 1, COLOR_BLACK, COLOR_BLACK);
+    init_pair(LIGHTBLUE + 1, COLOR_BLUE, COLOR_BLACK);
+    init_pair(LIGHTGREEN + 1, COLOR_GREEN, COLOR_BLACK);
+    init_pair(LIGHTCYAN + 1, COLOR_CYAN, COLOR_BLACK);
+    init_pair(LIGHTRED + 1, COLOR_RED, COLOR_BLACK);
+    init_pair(LIGHTMAGENTA + 1, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(YELLOW + 1, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(WHITE + 1, COLOR_WHITE, COLOR_BLACK);
 }
 
 void textcolor(int col)
 {
-    //int ccol = curses_colour(col);
-    //int pair = ccol == 0 ? 63 : ccol;
-    //attron(COLOR_PAIR(1));
-    //color_set(COLOR_PAIR(1), NULL);
-//    attron(COLOR_PAIR(MAGENTA + 1));
+    attrset(COLOR_PAIR(col + 1) | (col > LIGHTGRAY ? A_BOLD : 0));
 }
 
 void textbackground(int col)
 {
-    /*int ccol = curses_colour(col);
-    int pair = ccol == 0 ? 63 : ccol * 8;
-    wattrset(win, COLOR_PAIR(pair));*/
+    /* never called with anything but col = 0 */
 }
 
 void clrscr()
 {
     textcolor(LIGHTGRAY);
-    textbackground(BLACK);
     wclear(win);
-    //wrefresh(win);
 }
 
 void delay(int time)
