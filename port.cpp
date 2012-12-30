@@ -153,8 +153,8 @@ int cprintf(const char *fmt, ...)
 
 void gotoxy(int x, int y)
 {
-    //wmove(win, begin_y + y - 1, begin_x + x - 1);
-    wmove(win, y-1, x-1);
+    wmove(win, y - 1, x - 1);
+    wcursyncup(win);
 }
 
 int wherex()
@@ -272,5 +272,5 @@ void delay(int time)
 
 void _setcursortype(int cursortype)
 {
-    curs_set(cursortype);
+//    curs_set(cursortype);
 }
