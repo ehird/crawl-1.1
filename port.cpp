@@ -272,5 +272,5 @@ void delay(int time)
 
 void _setcursortype(int cursortype)
 {
-//    curs_set(cursortype);
+    curs_set(cursortype);
 }
