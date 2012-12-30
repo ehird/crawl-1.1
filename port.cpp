@@ -146,7 +146,7 @@ int cprintf(const char *fmt, ...)
 void gotoxy(int x, int y)
 {
     //wmove(win, begin_y + y - 1, begin_x + x - 1);
-    wmove(win, begin_y + y, begin_x + x);
+    wmove(win, y-1, x-1);
 }
 
 int wherex()
@@ -165,6 +165,8 @@ int wherey()
 
 void window(int left, int top, int right, int bottom)
 {
+    if (win != NULL && win != stdscr)
+        delwin(win);
     begin_y = top - 1;
     begin_x = left - 1;
     int lines = bottom - top + 1;
@@ -210,6 +212,7 @@ void puttext(int left, int top, int right, int bottom, unsigned char *str)
             unsigned char chr = *str++;
             unsigned char col = *str++;
             wchar_t w = cp437[chr];
+            if (w == 0) w = (wchar_t)' ';
             textcolor(col);
             mvaddnwstr(y, x, &w, 1);
         }
@@ -258,7 +261,6 @@ void clrscr()
 {
     textcolor(LIGHTGRAY);
     textbackground(BLACK);
-    win = stdscr; // ???
     wclear(win);
     wrefresh(win);
 }
