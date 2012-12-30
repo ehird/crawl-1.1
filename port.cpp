@@ -136,7 +136,7 @@ int cprintf(const char *fmt, ...)
     va_end(ap);
     // FIXME: This should probably do CP437 translation
     ret = waddstr(win, buf);
-    refresh();
+    wrefresh(win);
     return ret;
 }
 
