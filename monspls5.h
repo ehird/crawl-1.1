@@ -2926,7 +2926,7 @@ highscore(death_string, points);
         }
 */
 
-//      keyin = getch();
+        keyin = getch();
         exit(0);
 }
 

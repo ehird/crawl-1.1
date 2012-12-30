@@ -116,7 +116,10 @@ int kbhit(void)
 int putch(unsigned char c)
 {
     wchar_t w = cp437[c];
-    return waddnwstr(win, &w, 1);
+    int res;
+    res = waddnwstr(win, &w, 1);
+    wrefresh(win);
+    return res;
 }
 
 int getche(void)
