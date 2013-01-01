@@ -186,14 +186,14 @@ void gettext(int left, int top, int right, int bottom, unsigned char *dest)
 {
     int orig_y, orig_x;
     getyx(stdscr, orig_y, orig_x);
-    for (int row = top - 1; row <= bottom - 1; row++)
+    for (int y = top - 1; y <= bottom - 1; y++)
     {
-        for (int col = left - 1; col <= right - 1; col++)
+        for (int x = left - 1; x <= right - 1; x++)
         {
             // FIXME make this not crap
             // FIXME make it handle attributes too
             wchar_t w;
-            mvinnwstr(row, col, &w, 1);
+            mvinnwstr(y, x, &w, 1);
             for (unsigned int i = 0; i < 256; i++)
             {
                 if (cp437[i] == w)
@@ -201,7 +201,12 @@ void gettext(int left, int top, int right, int bottom, unsigned char *dest)
                     *dest++ = w;
                 }
             }
-            *dest++ = PAIR_NUMBER(inch() & A_COLOR) - 1;
+            *dest = PAIR_NUMBER(inch() & A_COLOR) - 1;
+            if (*dest > WHITE)
+                *dest = MAGENTA;
+            if (inch() & A_BOLD)
+                *dest += DARKGRAY;
+            dest++;
         }
     }
     move(orig_y, orig_x);
@@ -210,10 +215,10 @@ void gettext(int left, int top, int right, int bottom, unsigned char *dest)
 void puttext(int left, int top, int right, int bottom, unsigned char *str)
 {
     int orig_y, orig_x;
-    //attr_t attrs;
-    //short pair;
+    attr_t attrs;
+    short pair;
     getyx(stdscr, orig_y, orig_x);
-    //attr_get(&attrs, &pair, NULL);
+    attr_get(&attrs, &pair, NULL);
     for (int y = top - 1; y <= bottom - 1; y++)
     {
         for (int x = left - 1; x <= right - 1; x++)
@@ -226,7 +231,7 @@ void puttext(int left, int top, int right, int bottom, unsigned char *str)
             mvaddnwstr(y, x, &w, 1);
         }
     }
-    //attr_set(attrs, pair, NULL);
+    attr_set(attrs, pair, NULL);
     move(orig_y, orig_x);
 }
 
@@ -237,21 +242,22 @@ static void init_pairs(void)
     init_pair(GREEN + 1, COLOR_GREEN, COLOR_BLACK);
     init_pair(CYAN + 1, COLOR_CYAN, COLOR_BLACK);
     init_pair(RED + 1, COLOR_RED, COLOR_BLACK);
+    init_pair(MAGENTA + 1, COLOR_MAGENTA, COLOR_BLACK);
     init_pair(BROWN + 1, COLOR_YELLOW, COLOR_BLACK);
     init_pair(LIGHTGRAY + 1, COLOR_WHITE, COLOR_BLACK);
-    init_pair(DARKGRAY + 1, COLOR_BLACK, COLOR_BLACK);
-    init_pair(LIGHTBLUE + 1, COLOR_BLUE, COLOR_BLACK);
-    init_pair(LIGHTGREEN + 1, COLOR_GREEN, COLOR_BLACK);
-    init_pair(LIGHTCYAN + 1, COLOR_CYAN, COLOR_BLACK);
-    init_pair(LIGHTRED + 1, COLOR_RED, COLOR_BLACK);
-    init_pair(LIGHTMAGENTA + 1, COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(YELLOW + 1, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(WHITE + 1, COLOR_WHITE, COLOR_BLACK);
 }
 
 void textcolor(int col)
 {
-    attrset(COLOR_PAIR(col + 1) | (col > LIGHTGRAY ? A_BOLD : 0));
+    int attrs = 0;
+    if (col > LIGHTGRAY)
+    {
+        attrs |= A_BOLD;
+        col -= DARKGRAY;
+    }
+    attrs |= COLOR_PAIR(col + 1);
+    attrset(attrs);
+    wattrset(win, attrs);
 }
 
 void textbackground(int col)
