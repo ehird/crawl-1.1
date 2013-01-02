@@ -10,7 +10,7 @@ crawl: $(OBJECTS)
 	g++ $^ -lncursesw -o $@
 
 scores:
-	(for i in `seq 1 15` ; do echo -n ' empty                                                                          ' ; done) > scores
+	(for i in `seq 1 15` ; do echo -n '0       empty                                                                   ' ; done) > scores
 
 %.o: %.cpp
 	g++ -c $(CXXFLAGS) $< -o $@
