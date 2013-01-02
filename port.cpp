@@ -65,7 +65,7 @@ char *itoa(int n, char *s, int radix)
         n = -n;
     }
 
-    for (int tmp = 10; tmp <= n; tmp *= radix)
+    for (int tmp = radix; tmp <= n; tmp *= radix)
         s++;
 
     *++s = 0;
@@ -73,7 +73,7 @@ char *itoa(int n, char *s, int radix)
     while (n)
     {
         int d = n % radix;
-        n /= 10;
+        n /= radix;
         *--s = '0' + d;
     }
 
