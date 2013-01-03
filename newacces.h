@@ -1668,7 +1668,7 @@ strcat(cha_fil, ".lev");
 
 
 //handle = open(cha_fil, O_WRONLY | O_BINARY, S_IWRITE, S_IREAD);
-handle = open(cha_fil, O_CREAT | O_TRUNC | O_BINARY, S_IWRITE | S_IREAD);
+handle = open(cha_fil, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, S_IWRITE | S_IREAD);
 
 if (handle == -1)
 {
@@ -2253,7 +2253,7 @@ switch(newc)
 
 
 //handle = open(char_f, O_WRONLY | O_BINARY, S_IWRITE, S_IREAD);
-handle = open(char_f, O_CREAT | O_TRUNC | O_BINARY, S_IWRITE | S_IREAD);
+handle = open(char_f, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, S_IWRITE | S_IREAD);
 
 //handle = open("me.sav", O_CREAT | O_BINARY);
 
