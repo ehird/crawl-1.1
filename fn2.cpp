@@ -3451,6 +3451,9 @@ int random2(unsigned int rmax)
         //return random(rmax); // for BC
 
    if (rmax == 0) return 0;
+   if ((int)rmax < 0) {
+       return -(random() % (-(int)rmax));
+   }
 
         return random() % rmax; // for DJGPP
 }
