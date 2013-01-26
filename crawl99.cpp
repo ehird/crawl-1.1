@@ -1675,7 +1675,11 @@ scruggle = 0;
                 case 'r': read_scroll(); break;
 //              case '0': Wcheck(); break; // 0 key uses Wcheck()
                 case 'x': look_around(); break;
-  case 's': turnover = 1; move_x = 0; move_y = 0; break; //stethoscope(); break; turnover = 1; move_x = 0; move_y = 0; break; //stethoscope(); break; //turnover = 1; break; //stethoscope(); break;
+#ifdef WIZARD
+  case 's': stethoscope(); break; turnover = 1; move_x = 0; move_y = 0; break; //stethoscope(); break; //turnover = 1; break; //stethoscope(); break;
+#else
+  case 's': turnover = 1; move_x = 0; move_y = 0; break; //stethoscope(); break; //turnover = 1; break; //stethoscope(); break;
+#endif
                 case 'Z': cast_a_spell(); break;
                 case 'M': which_spell(); break;      //memorise_spell(); break;
   case 'X':
