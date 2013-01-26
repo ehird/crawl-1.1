@@ -1675,7 +1675,7 @@ scruggle = 0;
                 case 'r': read_scroll(); break;
 //              case '0': Wcheck(); break; // 0 key uses Wcheck()
                 case 'x': look_around(); break;
-  case 's': stethoscope(); break; turnover = 1; move_x = 0; move_y = 0; break; //stethoscope(); break; //turnover = 1; break; //stethoscope(); break;
+  case 's': turnover = 1; move_x = 0; move_y = 0; break; //stethoscope(); break; turnover = 1; move_x = 0; move_y = 0; break; //stethoscope(); break; //turnover = 1; break; //stethoscope(); break;
                 case 'Z': cast_a_spell(); break;
                 case 'M': which_spell(); break;      //memorise_spell(); break;
   case 'X':
@@ -1690,6 +1690,7 @@ show_map(map, x_pos, y_pos); break;
   case 16: replay_messages(); break;
   case '?': list_commands(); break;
   case 'V': original_name(); break;
+#ifdef WIZARD
   case '$': hp += 50; hp_max += 50; hp_ch = 1; break;
 //  case '$': identify(0); break; //forget_map(); break; //conf += 50; break; //hp_max += 50; hp_ch = 1;
 //  xp += 1000; xp_ch ++; level_change(); break;
@@ -1850,6 +1851,7 @@ incrl();
                         //incrl();
 //                      break;
 //              case 'a': dir_cursor(1); break;
+#endif
                 case 'S': save_game(); break;
                 case 'Q': quit_game(); break;
                 case 'v': version(); break;
