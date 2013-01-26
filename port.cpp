@@ -161,6 +161,7 @@ int wherex()
 {
     int x, y;
     getyx(win, y, x);
+    (void) y;
     return begin_x + x + 1;
 }
 
