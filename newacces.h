@@ -177,7 +177,7 @@ for (i = 0; i < 25; i ++)
 
 //      gloj = spawnl(P_WAIT, "createz.exe", eggo, cha_fil, eggo, eggo, it0, it1, it2, it3, NULL);
 
-cprintf("00");
+// cprintf("00");
 
 gloj = builder(
 igrid,
@@ -562,8 +562,8 @@ cprintf(": ");
                                 mn_no++;
                         }
  itoa(mons_class [count_x], st_prn, 10);
- cprintf(st_prn);
- cprintf(",");
+ // cprintf(st_prn);
+ // cprintf(",");
 /*              if (mons_class [count_x] == 215) mons_class [count_x] = -1;
                         else
                         {
