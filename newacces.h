@@ -798,7 +798,7 @@ getch();*/
 
 //      item_link [i] = (rm [19] - 48) + (rm [18] - 48) * 10 + (rm [17] - 48) * 100 + (rm [16] - 48) * 1000 + (rm [15] - 48) * 10000;
 
-        strcpy(ting_quant, "");
+        memset(ting_quant, 0, sizeof(ting_quant));
 
         for (p = 0; p < 4; p ++)  // p < 5
         {
@@ -821,7 +821,7 @@ getch();*/
 
         item_link [i] = temp_int; // - 10000;
 
-   strcpy(ting_quant, "");
+   memset(ting_quant, 0, sizeof(ting_quant));
 
 
 //   temp_int = 0;
